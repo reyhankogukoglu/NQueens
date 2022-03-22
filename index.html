@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
     <script src="index.js"></script>
     <style>
-         /* ♛ */
+        /* ♛ */
         .chess-board { border-spacing: 0; border-collapse: collapse; }
         .chess-board th { padding: .5em; }
         .chess-board th + th { border-bottom: 1px solid #000; }
@@ -20,18 +20,24 @@
     </style>
 </head>
 <body class="p-5">
+<div class="mb-2">
+    <label>Time 1:&emsp;<input type="text" id="startTime"></label>
+    <div class="mt-2">
+        <label>Time 2:&emsp;<input type="text" id="endTime"></label>
+    </div>
+</div>
 <table id="light" class="chess-board">
     <tbody>
     <tr>
         <th></th>
-        <th>0</th>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-        <th>7</th>
+        <th>&ensp;0</th>
+        <th>&ensp;1</th>
+        <th>&ensp;2</th>
+        <th>&ensp;3</th>
+        <th>&ensp;4</th>
+        <th>&ensp;5</th>
+        <th>&ensp;6</th>
+        <th>&ensp;7</th>
     </tr>
     <tr>
         <th>0</th>
@@ -115,7 +121,7 @@
         <td id="07" class="dark"></td>
         <td id="17" class="light"></td>
         <td id="27" class="dark"></td>
-        <td id="37" class="light">♛</td>
+        <td id="37" class="light"></td>
         <td id="47" class="dark"></td>
         <td id="57" class="light"></td>
         <td id="67" class="dark"></td>
@@ -123,7 +129,8 @@
     </tr>
     </tbody>
 </table>
-<button class="mt-5 btn btn-secondary" onclick="buttonClick();">Run JavaScript</button>
+<script> buttonClick(); </script>
+<button class="mt-5 btn btn-danger" onclick="buttonClick();">Play</button>
 <script src="bootstrap/jquery-3.3.1.slim.min.js"></script>
 <script src="bootstrap/popper.min.js"></script>
 <script src="bootstrap/bootstrap.min.js"></script>
