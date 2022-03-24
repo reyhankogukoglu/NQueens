@@ -85,6 +85,18 @@ function checkCols(){
 }
 
 function checkLeftDiags() {
+    for (var i = 0; i < board_size / 2; i++) {
+        var top = i;
+        var bottom = board_size - 1 - i;
+        for (var j = top; j < bottom; j++) {
+            var temp = board[top][j];
+            board[top][j] = board[j][bottom];
+            board[j][bottom] = board[bottom][bottom - (j - top)];
+            board[bottom][bottom - (j - top)] = board[bottom - (j - top)][top];
+            board[bottom - (j - top)][top] = temp;
+        }
+    }
+
     var diags:number[][]=[];
     var validResults:boolean[]=[];
     let k = 0;
@@ -99,11 +111,13 @@ function checkLeftDiags() {
                     numQueens += 1
                 }
                 aDiag.push(board[i][j])
-                // process.stdout.write(String(board[i][j]) + " ");
+                // process.stdout.write(String(rotated_board[i][j]) + " ");
             }
             j += 1
         }
+        // console.log(aDiag)
         diags.push(aDiag)
+        // console.log()
         k += 1
     }
 
@@ -111,7 +125,7 @@ function checkLeftDiags() {
     if (last_diags_element_size == 0){
         diags.pop();
     }
-    let returnVal = true;
+
     diags.forEach(diag => {
         let queenCounter = 0;
         diag.forEach(element => {
@@ -120,18 +134,20 @@ function checkLeftDiags() {
             }
         });
         if(queenCounter == 0 || queenCounter == 1){
-            validResults.push(true)
+            validResults.push(true);
         } else{
-            validResults.push(false)
+            validResults.push(false);
         }
     });
     validResults.forEach(value => {
         if(value != true){
-            // console.log()
-            returnVal = false;
+            leftDiagReturnVal = false;
         }
     });
-    return returnVal;
+    if (leftDiagReturnVal == null){
+        leftDiagReturnVal = true;
+    }
+    return leftDiagReturnVal;
 }
 
 function checkRightDiags(){
@@ -139,15 +155,77 @@ function checkRightDiags(){
 }
 
 function checkBoard(){
-    alert("checkBoard");
-    // if checkRows = true
-    // and if checkCols = true
-    // and if checkLeftDiags = true
-    // and if checkRightDiags = true
-    // return true
-    // else return false
+    var rowValidity:boolean = checkRows();
+    var colValidity:boolean = checkCols();
+    var ldiagValidity:boolean = checkLeftDiags();
+    var rdiagValidity:boolean = checkRightDiags();
+    if (rowValidity && colValidity && rdiagValidity && ldiagValidity){
+        valid_solutions.push(board);
+        console.log(rowValidity)
+        console.log(colValidity)
+        console.log(ldiagValidity)
+        console.log(rdiagValidity)
+
+        console.log("board was valid")
+    }
+    else{
+        //console.log("was not valid")
+        // console.log(rowValidity)
+        // console.log(colValidity)
+        //console.log(ldiagValidity)
+        //console.log(rdiagValidity)
+    }
 }
 
 function recursive_solution(){
     //
 }
+
+function iterative_solution(){
+    //
+}
+const permutations = ourPermutationsList => {
+    if (ourPermutationsList.length <= 2) return ourPermutationsList.length === 2 ? [ourPermutationsList, [ourPermutationsList[1], ourPermutationsList[0]]] : ourPermutationsList;
+    return ourPermutationsList.reduce(
+        (acc, item, i) =>
+            acc.concat(
+                permutations([...ourPermutationsList.slice(0, i), ...ourPermutationsList.slice(i + 1)]).map(val => [
+                    item,
+                    ...val,
+                ])
+            ),
+        []
+    );
+};
+
+var ourComboList:number[][] = permutations([0,1,2,3,4,5,6,7]);
+var allResults:number[][][] = [];
+ourComboList.forEach(combo =>{  // loop through all permutations
+    var oneResult:number[][]=[]
+    combo.forEach(element =>{  // loop through each element (col position) in the permutation
+        oneResult.push(board[element]);
+        // oneResult.append(ourBoard[element])
+    });
+    allResults.push(oneResult);
+});
+
+allResults.forEach(entry =>{
+    checkBoard();
+});
+
+console.log(allResults)
+console.log(board);
+board = allResults[0];
+checkBoard();
+
+//
+// var counter:number = 0;
+// allResults.forEach(result =>{
+//     board = result;
+//     checkBoard();
+//     // console.log(counter)
+//     counter += 1;
+// });
+// checkBoard();
+// // console.log(valid_solutions);
+// console.log("there were " + valid_solutions.length + " valid solutions found");
