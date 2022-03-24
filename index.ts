@@ -1,37 +1,79 @@
 // represent the board as an array
 // x column, y is the row
 
-var board_size = 8;
+function startTimer(){
+    document.getElementById("startTime").setAttribute("value", String(Date.now()));
+}
+function stopTimer(){
+    document.getElementById("endTime").setAttribute("value", String(Date.now()));
+}
+
+var valid_solutions:number[][][]=[];
+
 var board:number[][]=[
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0]
+    [1,0,0,0,0,0,0,0],
+    [0,1,0,0,0,0,0,0],
+    [0,0,1,0,0,0,0,0],
+    [0,0,0,1,0,0,0,0],
+    [0,0,0,0,1,0,0,0],
+    [0,0,0,0,0,1,0,0],
+    [0,0,0,0,0,0,1,0],
+    [0,0,0,0,0,0,0,1]
 ]
+// console.log(board)
+
+// board:number[][]=[
+//     [0,0,0,1,0,0,0,0],
+//     [0,0,0,0,1,0,0,0],
+//     [0,0,1,0,0,0,0,0],
+//     [0,0,0,0,0,0,0,1],
+//     [0,0,0,0,0,0,1,0],
+//     [1,0,0,0,0,0,0,0],
+//     [0,0,0,0,0,1,0,0],
+//     [0,1,0,0,0,0,0,0]
+// ]
+
+
+// board=[
+//     [0,0,0,0,0,0,0,0],
+//     [0,0,0,0,0,0,0,0],
+//     [0,0,0,0,0,0,0,0],
+//     [0,0,0,0,0,0,0,0],
+//     [0,0,0,0,0,0,0,0],
+//     [0,0,0,0,0,0,0,0],
+//     [0,0,0,0,0,0,0,0],
+//     [0,0,0,0,0,0,0,0]
+// ]
+var board_size = board.length;
+let leftDiagReturnVal = null;
+let rightDiagReturnVal = null;
 
 function updateBoardHTML(x, y, status){
     // (print) update the board on the screen
-}
-
-function printBoardToConsole(){
-    // print board matrix to console
+    let position_as_string = x.toString().concat(y.toString());
+    if (status == 1){
+        document.getElementById(position_as_string).innerHTML = "♛";
+    } else {
+        document.getElementById(position_as_string).innerHTML = "";
+    }
 }
 
 function buttonClick(){
-    toggleXY(1,1);
-    // toggleXY(2,1); // row conflict
-    toggleXY(1,2); // col conflict
-    // toggleXY(0,2); // left diag conflict
-    // toggleXY(3,3); // right diag conflict
+    console.log("Play button was clicked or page was reloaded");
+    // document.write(String(Date.now()) + "<br>")
 
-    console.log("rows: " + checkRows());
-    console.log("cols: " + checkCols());
-    console.log("Ldiags: " + checkLeftDiags());
-    console.log("Rdiags: " + checkRightDiags());
+    // toggleXY(1,1);
+    // toggleXY(2,1); // row conflict
+    // toggleXY(1,2); // col conflict
+    // toggleXY(3,3); // left diag conflict
+    // toggleXY(4,4); // left diag conflict 2
+    // toggleXY(0,2); // right diag conflict
+    // toggleXY(2,0); // right diag conflict 2
+
+    // console.log("rows: " + checkRows());
+    // console.log("cols: " + checkCols());
+    // console.log("Ldiags: " + checkLeftDiags());
+    // console.log("Rdiags: " + checkRightDiags());
 
     // document.write(String(Date.now()))
 }
@@ -69,7 +111,7 @@ function checkRows(){ // works
     return true;
 }
 
-function checkCols(){
+function checkCols(){ // works
     for(let x = 0; x < board_size; x++) {
         let numQueens:number = 0;
         for(let y = 0; y < board_size; y++) {
@@ -151,7 +193,70 @@ function checkLeftDiags() {
 }
 
 function checkRightDiags(){
-    alert("checkRightDiags");
+    var rotated_board:number[][]= board;
+    for (var i = 0; i < board_size / 2; i++) {
+        var top = i;
+        var bottom = board_size - 1 - i;
+        for (var j = top; j < bottom; j++) {
+            var temp = rotated_board[top][j];
+            rotated_board[top][j] = rotated_board[j][bottom];
+            rotated_board[j][bottom] = rotated_board[bottom][bottom - (j - top)];
+            rotated_board[bottom][bottom - (j - top)] = rotated_board[bottom - (j - top)][top];
+            rotated_board[bottom - (j - top)][top] = temp;
+        }
+    }
+
+    var diags:number[][]=[];
+    var validResults:boolean[]=[];
+    let k = 0;
+    while (k < board_size * 2){
+        var aDiag:number[]=[];
+        let numQueens = 0;
+        let j = 0;
+        while (j <= k){
+            let i = k - j;
+            if (i < board_size && j < board_size){
+                if(rotated_board[i][j] == 1){
+                    numQueens += 1
+                }
+                aDiag.push(rotated_board[i][j])
+                // process.stdout.write(String(rotated_board[i][j]) + " ");
+            }
+            j += 1
+        }
+        // console.log(aDiag)
+        diags.push(aDiag)
+        // console.log()
+        k += 1
+    }
+
+    var last_diags_element_size = diags[diags.length-1].length;
+    if (last_diags_element_size == 0){
+        diags.pop();
+    }
+
+    diags.forEach(diag => {
+        let queenCounter = 0;
+        diag.forEach(element => {
+            if(element == 1){
+                queenCounter += 1
+            }
+        });
+        if(queenCounter == 0 || queenCounter == 1){
+            validResults.push(true);
+        } else{
+            validResults.push(false);
+        }
+    });
+    validResults.forEach(value => {
+        if(value != true){
+            rightDiagReturnVal = false;
+        }
+    });
+    if (rightDiagReturnVal == null){
+        rightDiagReturnVal = true;
+    }
+    return rightDiagReturnVal;
 }
 
 function checkBoard(){
