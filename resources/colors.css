@@ -1,0 +1,19 @@
+.chess-board .light {
+  background: #eee; }
+
+.chess-board .dark {
+  background: #aaa; }
+
+.chess-btn {
+  /* bootstrap override */
+  /* LIGHT ON DARK */
+  color: #eee;
+  background: #aaa;
+  /* DARK ON LIGHT */
+  /*color: #aaa;*/
+  /*background: #eee;*/
+  /* OTHER */
+  /*color: #aaa;*/
+  /*background: #eee;*/ }
+
+/*# sourceMappingURL=colors.css.map */

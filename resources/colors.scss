@@ -1,0 +1,26 @@
+$lightColor: #eee;
+$darkColor: #aaa;
+
+.chess-board .light {
+  background: $lightColor;
+}
+
+.chess-board .dark {
+  background: $darkColor;
+}
+
+.chess-btn {
+  /* bootstrap override */
+
+  /* LIGHT ON DARK */
+  color: $lightColor;
+  background: $darkColor;
+
+  /* DARK ON LIGHT */
+  /*color: #aaa;*/
+  /*background: #eee;*/
+
+  /* OTHER */
+  /*color: #aaa;*/
+  /*background: #eee;*/
+}
