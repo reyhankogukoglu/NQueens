@@ -111,7 +111,7 @@ function checkLeftDiags(board:number[][]) {
     // so if that is the case we will remove it now
     var last_diags_element_size = diags[diags.length-1].length;
     if (last_diags_element_size == 0){
-        console.log(diags.pop());
+        diags.pop();
     }
 
     let returnValue:boolean = null;
@@ -200,8 +200,8 @@ function checkRightDiags(board:number[][]){
         }
     });
     validpermutedBoards.forEach(value => {
-        if(value != true){
-            returnValue = false;
+        if(!value){
+            returnValue = "false";
         }
     });
     if (returnValue == null){

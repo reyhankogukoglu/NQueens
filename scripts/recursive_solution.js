@@ -1,3 +1,4 @@
+"use strict";
 function recursive_solution() {
     alert("recursive_solution");
     // so basically for loop checks each column of the row
@@ -19,9 +20,9 @@ function recursive_solution() {
     // step (a) to try other rows.
     // 4) If all rows have been tried and nothing worked,
     // return false to trigger backtracking.
-    var valid_solutions = [];
+    let valid_solutions = [];
     // set board to queens on the main diagonal
-    var board = [
+    let board = [
         [1, 0, 0, 0, 0, 0, 0, 0],
         [0, 1, 0, 0, 0, 0, 0, 0],
         [0, 0, 1, 0, 0, 0, 0, 0],
@@ -31,6 +32,6 @@ function recursive_solution() {
         [0, 0, 0, 0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0, 0, 0, 1]
     ];
-    var board_size = board.length;
+    const board_size = board.length;
     console.log(valid_solutions.length + " solutions found!");
 }

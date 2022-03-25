@@ -1,12 +1,10 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkBoardDiags = exports.checkBoard = void 0;
 function checkBoard(board, valid_solutions) {
     var rowValidity = checkRows(board);
     var colValidity = checkCols(board);
     var ldiagValidity = checkLeftDiags(board);
     var rdiagValidity = checkRightDiags(board);
-    if (rowValidity && colValidity && rdiagValidity && ldiagValidity) {
+    if (rowValidity == "true" && colValidity == "true" && rdiagValidity == "true" && ldiagValidity == "true") {
         valid_solutions.push(board);
     }
     else {
@@ -25,11 +23,10 @@ function checkBoard(board, valid_solutions) {
     }
     return valid_solutions;
 }
-exports.checkBoard = checkBoard;
 function checkBoardDiags(board, valid_solutions) {
     var ldiagValidity = checkLeftDiags(board);
     var rdiagValidity = checkRightDiags(board);
-    if (rdiagValidity && ldiagValidity) {
+    if (rdiagValidity == "true" && ldiagValidity == "true") {
         valid_solutions.push(board);
     }
     else {
@@ -42,36 +39,35 @@ function checkBoardDiags(board, valid_solutions) {
     }
     return valid_solutions;
 }
-exports.checkBoardDiags = checkBoardDiags;
 function checkRows(board) {
     var board_size = board.length;
-    for (var y = 0; y < board_size; y++) {
-        var numQueens = 0;
-        for (var x = 0; x < board_size; x++) {
+    for (let y = 0; y < board_size; y++) {
+        let numQueens = 0;
+        for (let x = 0; x < board_size; x++) {
             if (board[x][y] == 1) {
                 numQueens += 1;
                 if (numQueens > 1) {
-                    return false;
+                    return "false";
                 }
             }
         }
     }
-    return true;
+    return "true";
 }
 function checkCols(board) {
     var board_size = board.length;
-    for (var x = 0; x < board_size; x++) {
-        var numQueens = 0;
-        for (var y = 0; y < board_size; y++) {
+    for (let x = 0; x < board_size; x++) {
+        let numQueens = 0;
+        for (let y = 0; y < board_size; y++) {
             if (board[x][y] == 1) {
                 numQueens += 1;
                 if (numQueens > 1) {
-                    return false;
+                    return "false";
                 }
             }
         }
     }
-    return true;
+    return "true";
 }
 function checkLeftDiags(board) {
     var board_size = board.length;
@@ -88,20 +84,20 @@ function checkLeftDiags(board) {
     }
     var diags = [];
     var validpermutedBoards = [];
-    var k = 0;
+    let k = 0;
     while (k < board_size * 2) {
         var aDiag = [];
-        var numQueens = 0;
-        var j_1 = 0;
-        while (j_1 <= k) {
-            var i_1 = k - j_1;
-            if (i_1 < board_size && j_1 < board_size) {
-                if (board[i_1][j_1] == 1) {
+        let numQueens = 0;
+        let j = 0;
+        while (j <= k) {
+            let i = k - j;
+            if (i < board_size && j < board_size) {
+                if (board[i][j] == 1) {
                     numQueens += 1;
                 }
-                aDiag.push(board[i_1][j_1]);
+                aDiag.push(board[i][j]);
             }
-            j_1 += 1;
+            j += 1;
         }
         diags.push(aDiag);
         k += 1;
@@ -110,12 +106,12 @@ function checkLeftDiags(board) {
     // so if that is the case we will remove it now
     var last_diags_element_size = diags[diags.length - 1].length;
     if (last_diags_element_size == 0) {
-        console.log(diags.pop());
+        diags.pop();
     }
-    var returnValue = null;
-    diags.forEach(function (diag) {
-        var queenCounter = 0;
-        diag.forEach(function (element) {
+    let returnValue = "null";
+    diags.forEach(diag => {
+        let queenCounter = 0;
+        diag.forEach(element => {
             if (element == 1) {
                 queenCounter += 1;
             }
@@ -127,13 +123,13 @@ function checkLeftDiags(board) {
             validpermutedBoards.push(false);
         }
     });
-    validpermutedBoards.forEach(function (value) {
+    validpermutedBoards.forEach(value => {
         if (value != true) {
-            returnValue = false;
+            returnValue = "false";
         }
     });
-    if (returnValue == null) {
-        returnValue = true;
+    if (returnValue == "null") {
+        returnValue = "true";
     }
     return returnValue;
 }
@@ -153,21 +149,21 @@ function checkRightDiags(board) {
     }
     var diags = [];
     var validpermutedBoards = [];
-    var k = 0;
+    let k = 0;
     while (k < board_size * 2) {
         var aDiag = [];
-        var numQueens = 0;
-        var j_2 = 0;
-        while (j_2 <= k) {
-            var i_2 = k - j_2;
-            if (i_2 < board_size && j_2 < board_size) {
-                if (rotated_board[i_2][j_2] == 1) {
+        let numQueens = 0;
+        let j = 0;
+        while (j <= k) {
+            let i = k - j;
+            if (i < board_size && j < board_size) {
+                if (rotated_board[i][j] == 1) {
                     numQueens += 1;
                 }
-                aDiag.push(rotated_board[i_2][j_2]);
+                aDiag.push(rotated_board[i][j]);
                 // process.stdout.write(String(rotated_board[i][j]) + " ");
             }
-            j_2 += 1;
+            j += 1;
         }
         // console.log(aDiag)
         diags.push(aDiag);
@@ -180,10 +176,10 @@ function checkRightDiags(board) {
     if (last_diags_element_size == 0) {
         diags.pop();
     }
-    var returnValue = null;
-    diags.forEach(function (diag) {
-        var queenCounter = 0;
-        diag.forEach(function (element) {
+    let returnValue = "null";
+    diags.forEach(diag => {
+        let queenCounter = 0;
+        diag.forEach(element => {
             if (element == 1) {
                 queenCounter += 1;
             }
@@ -195,13 +191,13 @@ function checkRightDiags(board) {
             validpermutedBoards.push(false);
         }
     });
-    validpermutedBoards.forEach(function (value) {
-        if (value != true) {
-            returnValue = false;
+    validpermutedBoards.forEach(value => {
+        if (!value) {
+            returnValue = "false";
         }
     });
-    if (returnValue == null) {
-        returnValue = true;
+    if (returnValue == "null") {
+        returnValue = "true";
     }
     return returnValue;
 }

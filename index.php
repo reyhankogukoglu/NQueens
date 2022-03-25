@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="resources/bootstrap.min.css">
     <link rel="stylesheet" href="resources/chess_styling.css">
     <link rel="stylesheet" href="resources/colors.css">
-    <link rel="icon" href="resources/queen.png">
+    <link rel="icon" href="https://cdn.pixabay.com/photo/2012/04/18/00/42/chess-36311_1280.png">
 </head>
 <body class="px-5 bg-light">
 <!--for our iterative method do we need to check rows and columns?-->
