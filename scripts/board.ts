@@ -1,7 +1,7 @@
 function sizeSelectChange(){
-    let size8DropDown = document.getElementById('select8');
-    let size9DropDown = document.getElementById('select9');
-    let boardSizeInput = document.getElementById('board-size-input');
+    let size8DropDown = document.getElementById('select8')!;
+    let size9DropDown = document.getElementById('select9')!;
+    let boardSizeInput = document.getElementById('board-size-input')!;
     if(size8DropDown.getAttribute("selected") != null){
         boardSizeInput.setAttribute("value", "8");
     }
@@ -11,9 +11,9 @@ function sizeSelectChange(){
 }
 
 function change_size(){
-    let size8DropDown = document.getElementById('select8');
-    let size9DropDown = document.getElementById('select9');
-    let boardSizeInput = document.getElementById('board-size-input');
+    let size8DropDown = document.getElementById('select8')!;
+    let size9DropDown = document.getElementById('select9')!;
+    let boardSizeInput = document.getElementById('board-size-input')!;
     if(size8DropDown.getAttribute("selected") != null){
         boardSizeInput.setAttribute("value", "8");
     }
@@ -43,23 +43,26 @@ function toggleXY(board:number[][], x: number, y: number){
     return board;
 }
 
-function updateBoardCellHTML(x, y, status){
+function updateBoardCellHTML(x:number, y:number, status:number){
     let position_as_string = x.toString().concat(y.toString());
     if (status == 1){
-        document.getElementById(position_as_string).innerHTML = "♛";
+        let cell = document.getElementById(position_as_string)!;
+        cell.innerHTML = "♛";
     } else {
-        document.getElementById(position_as_string).innerHTML = "";
+        let cell = document.getElementById(position_as_string)!;
+        cell.innerHTML = "";
     }
 }
 
-export function updateBoardHTML(board:number[][]){
+function updateBoardHTML(board:number[][]){
     let counter1:number = 0;
     board.forEach(column => {
         let counter2:number = 0;
         column.forEach(cell =>{
             let targetID:string = String(counter2) + String(counter1); // IS THIS REVERSED?
             let newValue:string=String(cell)=='1'?'♛':'';
-            document.getElementById(targetID).innerHTML = newValue;
+            let HTMLcell = document.getElementById(targetID)!;
+            HTMLcell.innerHTML = newValue;
             // console.log(targetID);
             counter2 += 1;
         });

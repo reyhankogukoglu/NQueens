@@ -80,9 +80,9 @@
             echo "<a href='../NQueens/?n=9'><button class='mt-3 btn btn-secondary chess-btn'>9-Queens</button></a>";
         } else {
             if($_GET['n'] == "8"){
-                echo "<a href='../NQueens/?n=9'><button class='mt-3 btn btn-secondary chess-btn' onclick='change_size();'>9-Queens</button></a>";
+                echo "<a href='../NQueens/?n=9'><button class='mt-3 btn btn-secondary chess-btn'>9-Queens</button></a>";
             } else if ($_GET['n'] == "9") {
-                echo "<a href='../NQueens/'><button class='mt-3 btn btn-secondary chess-btn' onclick='change_size();'>8-Queens</button></a>";
+                echo "<a href='../NQueens/'><button class='mt-3 btn btn-secondary chess-btn'>8-Queens</button></a>";
             }
         }
         ?>

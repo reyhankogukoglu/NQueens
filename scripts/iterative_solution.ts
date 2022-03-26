@@ -54,7 +54,6 @@ function iterative_solution(){
     // action
     allPossibleBoards.forEach(permutedBoard =>{
         board = permutedBoard;
-        console.log(board);
         valid_solutions = checkBoardDiags(board, valid_solutions);
     });
     updateBoardHTML(board);

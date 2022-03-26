@@ -1,9 +1,9 @@
-export function checkBoard(board:number[][], valid_solutions:number[][][]){
-    var rowValidity:boolean = checkRows(board);
-    var colValidity:boolean = checkCols(board);
-    var ldiagValidity:boolean = checkLeftDiags(board);
-    var rdiagValidity:boolean = checkRightDiags(board);
-    var boardValidity:boolean = rowValidity && colValidity && rdiagValidity && ldiagValidity;
+function checkBoard(board:number[][], valid_solutions:number[][][]){
+    var rowValidity:string = checkRows(board);
+    var colValidity:string = checkCols(board);
+    var ldiagValidity:string = checkLeftDiags(board);
+    var rdiagValidity:string = checkRightDiags(board);
+    var boardValidity:boolean = rowValidity != "false" && colValidity != "false" && rdiagValidity != "false" && ldiagValidity != "false";
     if (boardValidity){
         valid_solutions.push(board);
     } else {
@@ -26,15 +26,11 @@ export function checkBoard(board:number[][], valid_solutions:number[][][]){
     ];
 }
 
-export function checkBoardDiags(board:number[][], valid_solutions:number[][][]){
-    var ldiagValidity:boolean = checkLeftDiags(board);
-    var rdiagValidity:boolean = checkRightDiags(board);
-    if (rdiagValidity && ldiagValidity){
+function checkBoardDiags(board:number[][], valid_solutions:number[][][]){
+    var ldiagValidity:string = checkLeftDiags(board);
+    var rdiagValidity:string = checkRightDiags(board);
+    if (rdiagValidity != "false" && ldiagValidity != "false"){
         valid_solutions.push(board);
-    } else {
-        if(!ldiagValidity || rdiagValidity){
-            // console.log("bad diagonal: " + ldiagValidity)
-        }
     }
     return valid_solutions;
 }
@@ -47,12 +43,12 @@ function checkRows(board:number[][]){
             if(board[x][y] == 1){
                 numQueens += 1;
                 if(numQueens > 1){
-                    return false;
+                    return "false";
                 }
             }
         }
     }
-    return true;
+    return "true";
 }
 
 function checkCols(board:number[][]){
@@ -63,12 +59,12 @@ function checkCols(board:number[][]){
             if(board[x][y] == 1){
                 numQueens += 1;
                 if(numQueens > 1){
-                    return false;
+                    return "false";
                 }
             }
         }
     }
-    return true;
+    return "true";
 }
 
 function checkLeftDiags(board:number[][]) {
@@ -113,7 +109,7 @@ function checkLeftDiags(board:number[][]) {
         diags.pop();
     }
 
-    let returnValue:boolean = null;
+    let returnValue:string = "null";
     diags.forEach(diag => {
         let queenCounter = 0;
         diag.forEach(element => {
@@ -129,11 +125,11 @@ function checkLeftDiags(board:number[][]) {
     });
     validpermutedBoards.forEach(value => {
         if(value != true){
-            returnValue = false;
+            returnValue = "false";
         }
     });
-    if (returnValue == null){
-        returnValue = true;
+    if (returnValue == "null"){
+        returnValue = "true";
     }
     return returnValue;
 }
@@ -173,7 +169,6 @@ function checkRightDiags(board:number[][]){
         }
         // console.log(aDiag)
         diags.push(aDiag)
-        // console.log()
         k += 1
     }
 
@@ -184,7 +179,7 @@ function checkRightDiags(board:number[][]){
         diags.pop();
     }
 
-    let returnValue:boolean = null;
+    let returnValue:string = "null";
     diags.forEach(diag => {
         let queenCounter = 0;
         diag.forEach(element => {
@@ -203,8 +198,8 @@ function checkRightDiags(board:number[][]){
             returnValue = "false";
         }
     });
-    if (returnValue == null){
-        returnValue = true;
+    if (returnValue == "null"){
+        returnValue = "true";
     }
     return returnValue;
 }
