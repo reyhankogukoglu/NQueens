@@ -2,17 +2,17 @@
 function iterative_solution() {
     let valid_solutions = [];
     // set board to queens on the main diagonal
-    let board = [
-        [1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0, 0, 0, 0],
-        [0, 0, 0, 1, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0, 0, 0],
-        [0, 0, 0, 0, 0, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 1]
-    ];
-    const board_size = board.length;
+    let board_size = checkHTMLBoardSize();
+    // initialize the board with a main diagonal of queens
+    let board = [];
+    for (let k = 0; k < board_size; k++) {
+        let boardRow = [];
+        for (let l = 0; l < board_size; l++) {
+            boardRow.push(0);
+        }
+        boardRow[k] = 1;
+        board.push(boardRow);
+    }
     // updateBoardHTML(board);
     // setup - calculating permutations for N-queen on a main diagonal
     const permutations = (ourPermutationsList) => {
@@ -23,20 +23,37 @@ function iterative_solution() {
             ...val,
         ])), []);
     };
-    var rowPermutationList = permutations([0, 1, 2, 3, 4, 5, 6, 7]);
+    var rowPermutationList = permutations(Array.from(Array(board_size).keys()));
+    console.log(rowPermutationList);
     // setup cont. - performing permutedBoard on diagonal sub arrays
     var allPossibleBoards = [];
+    var permutedBoard;
     rowPermutationList.forEach(permutation => {
-        var permutedBoard = [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
-        ];
+        if (board_size == 8) {
+            permutedBoard = [
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0]
+            ];
+        }
+        else if (board_size == 9) {
+            permutedBoard = [
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            ];
+        }
         let permutationCounter = 0;
         permutation.forEach(element => {
             permutedBoard[permutationCounter] = board[element];
@@ -50,5 +67,9 @@ function iterative_solution() {
         valid_solutions = checkBoardDiags(board, valid_solutions);
     });
     updateBoardHTML(board);
-    console.log(valid_solutions.length + " solutions found!");
+    unlockTimerButton("Iterative");
+    // stopTimerFirst();
+    // stopTimer();
+    unlockSolutions();
+    console.log(valid_solutions.length + " solutions found iteratively for " + board_size + "-Queens!");
 }

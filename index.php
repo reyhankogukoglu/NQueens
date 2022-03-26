@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--    to do-->
+<!--    we should make a readme for the repo for nqueens-->
+<!--    and fix the hover colors for the bootstrap css-->
+<!--    should be 352 not 280-->
     <meta charset="UTF-8">
     <title>N-Queens: Iteration and Recursion</title>
     <!-- RESOURCES -->
@@ -8,13 +12,15 @@
     <link rel="stylesheet" href="resources/chess_styling.css">
     <link rel="stylesheet" href="resources/colors.css">
     <link rel="icon" href="resources/queen.png">
+    <script src="resources/jquery-3.6.0.min.js"></script>
 </head>
 <body class="px-5 bg-light">
 <header>
     <div class="pt-4" >
-        <img class="float-start" src="resources/queen.png" alt="Queen Icon" width="112" height="112">
+        <img class="float-start mt-2" src="resources/queen.png" alt="Queen Icon" width="112" height="112">
         <div class="px-3" style="display:inline-block">
             <h3>N-Queens</h3>
+            <h5>Ontario Tech University</h5>
             <h6>SOFE 2715U: Data Structures</h6>
             <h6>Iterative & Recursive Solutions</h6>
             <h6>8-Queens, 9-Queens & Runtimes</h6>
@@ -22,27 +28,45 @@
     </div>
 </header>
 <div class="vstack gap-3">
-    <a href="resources/nqueens_manuscript.pdf"><button class="mt-3 btn btn-secondary chess-btn">Manuscript</button></a>
-    <a href="https://github.com/reyhankogukoglu/NQueens"><button class="mt-3 btn btn-secondary chess-btn">GitHub Repo</button></a>
-    <div id="timer" class="float-start container mb-5" hidden>
+    <a class="px-3" href="resources/nqueens_manuscript.pdf"><button class="mt-3 btn btn-secondary btn-lg chess-btn">Report</button></a>
+    <a href="https://github.com/reyhankogukoglu/NQueens"><button class="mt-3 btn btn-secondary btn-lg chess-btn">GitHub</button></a>
+    <div id="timer" class="px-5 float-start container mt-3">
         <!-- TIMER (HIDDEN BY DEFAULT) -->
-        <div class="row">
-            <div class="col">
-                <h6 class="mb-3">Start Time</h6>
-                <h6 class="mb-3">End Time (1st)</h6>
-                <h6 class="mb-3">End Time (All)</h6>
-                <h6 class="mb-3">Total Time (1st)</h6>
-                <h6 class="mb-3">Total Time (All)</h6>
-            </div>
-            <div class="col">
-                <input class="mb-3" type="text" id="startTime" disabled>
-                <input class="mb-3" type="text" id="endTimeFirst" disabled>
-                <input class="mb-3" type="text" id="totalTimeFirst" disabled>
-                <input class="mb-3" type="text" id="endTime" disabled>
-                <input class="mb-3" type="text" id="totalTime" disabled>
-            </div>
-        </div>
+        <h3 id="timerTableLabel"></h3>
+        <table class="table" style="width: 20rem">
+            <thead>
+            <tr>
+                <th scope="col">Metric</th>
+                <th scope="col">Time (ms)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">Start Time</th>
+                <td id="startTime"></td>
+            </tr>
+            <tr>
+                <th scope="row">End Time (1st)</th>
+                <td id="endTimeFirst"></td>
+            </tr>
+            <tr>
+                <th scope="row">End Time (All)</th>
+                <td id="endTime"></td>
+            </tr>
+            <tr>
+                <th scope="row">Total Time (1st)</th>
+                <td id="totalTimeFirst"></td>
+            </tr>
+            <tr>
+                <th scope="row">Total Time (All)</th>
+                <td id="totalTime"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+    <script>
+        $("#timer").toggle();
+    </script>
     <div id="chess-board">
         <!-- PHP PRINTING IN CHESS BOARD HTML -->
         <!-- (N=8 OR N=9) BASED OFF GET REQUEST -->
@@ -70,44 +94,47 @@
         ?>
     </div>
     <div id="menu" class="px-4">
-        <button id="timer-btn" class="mt-3 btn btn-success" onclick="timerToggle();">Timer</button>
-        <button class="mt-3 btn btn-secondary chess-btn" onclick="iterative_solution();">Iterative</button>
-        <button class="mt-3 btn btn-secondary chess-btn" onclick="recursive_solution();">Recursive</button>
+        <button id="timer-btn" class="mt-4 btn btn-secondary chess-btn" onclick="timerToggle();">Timer</button>
+        <button class="mt-4 btn btn-secondary chess-btn" onclick="iterative_solution();">Iterative</button>
+        <button class="mt-4 btn btn-secondary chess-btn" onclick="recursive_solution();">Recursive</button>
         <!-- PRINT DIFFERENT BUTTON WITH DIFFERENT LINK -->
         <!-- /W PHP BASED OFF WHICH BOARD IS BEING SHOWN -->
         <?php
         if(!isset($_GET['n'])){
-            echo "<a href='../NQueens/?n=9'><button class='mt-3 btn btn-secondary chess-btn'>9-Queens</button></a>";
+            echo "<a href='../NQueens/?n=9'><button id='changeSizeBtn' class='mt-4 btn btn-secondary chess-btn'>9-Queens</button></a>";
         } else {
             if($_GET['n'] == "8"){
-                echo "<a href='../NQueens/?n=9'><button class='mt-3 btn btn-secondary chess-btn'>9-Queens</button></a>";
+                echo "<a href='../NQueens/?n=9'><button id='changeSizeBtn' class='mt-4 btn btn-secondary chess-btn'>9-Queens</button></a>";
             } else if ($_GET['n'] == "9") {
-                echo "<a href='../NQueens/'><button class='mt-3 btn btn-secondary chess-btn'>8-Queens</button></a>";
+                echo "<a href='../NQueens/'><button id='changeSizeBtn' class='mt-4 btn btn-secondary chess-btn'>8-Queens</button></a>";
             }
         }
         ?>
-        <div id="solutions" hidden>
+        <div id="solutions">
             <!-- SOLUTIONS (HIDDEN BY DEFAULT) -->
             <select id="solutionDropDown" class="mt-3 form-select" aria-label="Default select example" style="width: 24rem">
                 <option selected>Click here to see solutions..</option>
                 <!--        <option value="solution3">Three</option>-->
             </select>
         </div>
+        <script>
+            $("#solutions").toggle();
+        </script>
     </div>
 </div>
 <div class="px-4 mt-3">
-    <h4>N-Queens by:</h4>
+    <h6 style="display:inline-block">Authors:&nbsp;</h6>
     <a href="http://aldenocain.com/"><button class="mt-1 btn btn-secondary chess-btn">Alden O'Cain</button></a>
     <a href="http://reyhankogukoglu.com/"><button class="mt-1 btn btn-secondary chess-btn">Reyhan Kogukoglu</button></a>
 </div>
 <!-- SCRIPTS -->
-<script src="scripts/timer.js"></script>
 <script src="scripts/board.js"></script>
 <script src="scripts/check_board.js"></script>
 <script src="scripts/iterative_solution.js"></script>
 <script src="scripts/recursive_solution.js"></script>
+<script src="scripts/solutions.ts"></script>
+<script src="scripts/timer.js"></script>
 <!-- OTHER RESOURCES -->
-<script src="resources/jquery-3.3.1.slim.min.js"></script>
 <script src="resources/popper.min.js"></script>
 <script src="resources/bootstrap.min.js"></script>
 </body>

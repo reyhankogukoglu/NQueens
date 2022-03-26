@@ -24,6 +24,16 @@ function change_size(){
     // document.getElementById('board-size-form').submit();
 }
 
+function checkHTMLBoardSize(){
+    let changeSizeBtn = document.getElementById("changeSizeBtn")!;
+    let sizeHTML = changeSizeBtn.innerHTML;
+    if (String(sizeHTML).includes("8")){
+        return 9;
+    } else if (String(sizeHTML).includes("9")){
+        return 8;
+    }
+}
+
 function isQueenHere(board:number[][], x:number, y: number){
     // write function check to see if there is a queen in a specific spot < isQueenHere(x, y) >
     return board[x][y];
