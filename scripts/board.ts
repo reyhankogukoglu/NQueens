@@ -1,3 +1,15 @@
+function sizeSelectChange(){
+    let size8DropDown = document.getElementById('select8');
+    let size9DropDown = document.getElementById('select9');
+    let boardSizeInput = document.getElementById('board-size-input');
+    if(size8DropDown.getAttribute("selected") != null){
+        boardSizeInput.setAttribute("value", "8");
+    }
+    if(size9DropDown.getAttribute("selected") != null){
+        boardSizeInput.setAttribute("value", "9");
+    }
+}
+
 function change_size(){
     let size8DropDown = document.getElementById('select8');
     let size9DropDown = document.getElementById('select9');

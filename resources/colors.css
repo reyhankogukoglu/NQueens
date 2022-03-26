@@ -8,10 +8,10 @@
   /* bootstrap override */
   /* LIGHT ON DARK */
   color: #eee;
-  background: #aaa;
+  background: #6e6b6b;
   /* DARK ON LIGHT */
-  /*color: #aaa;*/
-  /*background: #eee;*/
+  /*color: $buttonDark;*/
+  /*background: $buttonLight;*/
   /* OTHER */
   /*color: #aaa;*/
   /*background: #eee;*/ }

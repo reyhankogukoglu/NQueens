@@ -3,10 +3,10 @@ export function checkBoard(board:number[][], valid_solutions:number[][][]){
     var colValidity:boolean = checkCols(board);
     var ldiagValidity:boolean = checkLeftDiags(board);
     var rdiagValidity:boolean = checkRightDiags(board);
-    if (rowValidity && colValidity && rdiagValidity && ldiagValidity){
+    var boardValidity:boolean = rowValidity && colValidity && rdiagValidity && ldiagValidity;
+    if (boardValidity){
         valid_solutions.push(board);
-    }
-    else {
+    } else {
         if(!rowValidity){
             console.log("rows: " + rowValidity)
         }
@@ -20,7 +20,10 @@ export function checkBoard(board:number[][], valid_solutions:number[][][]){
             console.log("rdiag: " + rdiagValidity)
         }
     }
-    return valid_solutions;
+    return [
+        boardValidity,
+        valid_solutions
+    ];
 }
 
 export function checkBoardDiags(board:number[][], valid_solutions:number[][][]){
@@ -28,13 +31,9 @@ export function checkBoardDiags(board:number[][], valid_solutions:number[][][]){
     var rdiagValidity:boolean = checkRightDiags(board);
     if (rdiagValidity && ldiagValidity){
         valid_solutions.push(board);
-    }
-    else {
-        if(!ldiagValidity){
-            console.log("ldiag: " + ldiagValidity)
-        }
-        if(!rdiagValidity){
-            console.log("rdiag: " + rdiagValidity)
+    } else {
+        if(!ldiagValidity || rdiagValidity){
+            // console.log("bad diagonal: " + ldiagValidity)
         }
     }
     return valid_solutions;

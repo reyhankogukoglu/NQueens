@@ -1,5 +1,7 @@
 $lightColor: #eee;
 $darkColor: #aaa;
+$buttonLight: $lightColor;
+$buttonDark: #6e6b6b;
 
 .chess-board .light {
   background: $lightColor;
@@ -13,12 +15,12 @@ $darkColor: #aaa;
   /* bootstrap override */
 
   /* LIGHT ON DARK */
-  color: $lightColor;
-  background: $darkColor;
+  color: $buttonLight;
+  background: $buttonDark;
 
   /* DARK ON LIGHT */
-  /*color: #aaa;*/
-  /*background: #eee;*/
+  /*color: $buttonDark;*/
+  /*background: $buttonLight;*/
 
   /* OTHER */
   /*color: #aaa;*/

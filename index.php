@@ -7,20 +7,23 @@
     <link rel="stylesheet" href="resources/bootstrap.min.css">
     <link rel="stylesheet" href="resources/chess_styling.css">
     <link rel="stylesheet" href="resources/colors.css">
-    <link rel="icon" href="https://cdn.pixabay.com/photo/2012/04/18/00/42/chess-36311_1280.png">
+    <link rel="icon" href="resources/queen.png">
 </head>
 <body class="px-5 bg-light">
-<!--for our iterative method do we need to check rows and columns?-->
-<!--<br>maybe add a header/image of queen? see icon image-->
-<!--<br>rename your github repo to NQueens-->
-<!--<br>change board back to letters at the top?-->
-
-<form id="board-size-form" method="get" action=""><input type="text" name="n" id="board-size-input"></form>
-
+<header>
+    <div class="pt-4" >
+        <img class="float-start" src="resources/queen.png" alt="Queen Icon" width="112" height="112">
+        <div class="px-3" style="display:inline-block">
+            <h3>N-Queens</h3>
+            <h6>SOFE 2715U: Data Structures</h6>
+            <h6>Iterative & Recursive Solutions</h6>
+            <h6>8-Queens, 9-Queens & Runtimes</h6>
+        </div>
+    </div>
+</header>
 <div class="vstack gap-3">
     <a href="resources/nqueens_manuscript.pdf"><button class="mt-3 btn btn-secondary chess-btn">Manuscript</button></a>
-    <a href="https://github.com/reyhankogukoglu/QueenActivity"><button class="mt-3 btn btn-secondary chess-btn">GitHub Repo</button></a>
-    <!--    <div class="float-start container mb-5" style="width: 20rem" hidden>-->
+    <a href="https://github.com/reyhankogukoglu/NQueens"><button class="mt-3 btn btn-secondary chess-btn">GitHub Repo</button></a>
     <div id="timer" class="float-start container mb-5" hidden>
         <!-- TIMER (HIDDEN BY DEFAULT) -->
         <div class="row">
@@ -41,7 +44,8 @@
         </div>
     </div>
     <div id="chess-board">
-        <!-- CHESS BOARD HTML -->
+        <!-- PHP PRINTING IN CHESS BOARD HTML -->
+        <!-- (N=8 OR N=9) BASED OFF GET REQUEST -->
         <?php
         if(!isset($_GET['n'])){
             $fileName = "8-queens-board.html";
@@ -66,23 +70,22 @@
         ?>
     </div>
     <div id="menu" class="px-4">
-        <select id="boardSizeDropDown" class="mt-3 form-select" aria-label="Default select example" style="width: 24rem">
-            <?php
-            if(!isset($_GET['n'])){
-                echo "<option value='8' id='select8' selected>8-Queens</option><option id='select9' value='9'>9-Queens</option>";
-            } else {
-                if($_GET['n'] == "8"){
-                    echo "<option value='8' id='select8' selected>8-Queens</option><option id='select9' value='9'>9-Queens</option>";
-                } else if ($_GET['n'] == "9") {
-                    echo "<option value='8' id='select8'>8-Queens</option><option value='9' id='select9' selected>9-Queens</option>";
-                }
-            }
-            ?>
-        </select>
         <button id="timer-btn" class="mt-3 btn btn-success" onclick="timerToggle();">Timer</button>
         <button class="mt-3 btn btn-secondary chess-btn" onclick="iterative_solution();">Iterative</button>
         <button class="mt-3 btn btn-secondary chess-btn" onclick="recursive_solution();">Recursive</button>
-        <button class="mt-3 btn btn-secondary chess-btn" onclick="change_size();">Change Size</button>
+        <!-- PRINT DIFFERENT BUTTON WITH DIFFERENT LINK -->
+        <!-- /W PHP BASED OFF WHICH BOARD IS BEING SHOWN -->
+        <?php
+        if(!isset($_GET['n'])){
+            echo "<a href='../NQueens/?n=9'><button class='mt-3 btn btn-secondary chess-btn'>9-Queens</button></a>";
+        } else {
+            if($_GET['n'] == "8"){
+                echo "<a href='../NQueens/?n=9'><button class='mt-3 btn btn-secondary chess-btn' onclick='change_size();'>9-Queens</button></a>";
+            } else if ($_GET['n'] == "9") {
+                echo "<a href='../NQueens/'><button class='mt-3 btn btn-secondary chess-btn' onclick='change_size();'>8-Queens</button></a>";
+            }
+        }
+        ?>
         <div id="solutions" hidden>
             <!-- SOLUTIONS (HIDDEN BY DEFAULT) -->
             <select id="solutionDropDown" class="mt-3 form-select" aria-label="Default select example" style="width: 24rem">
@@ -92,10 +95,10 @@
         </div>
     </div>
 </div>
-<div class="px-5 mt-5">
-    <h5>N-Queens by:</h5>
-    <a href="http://aldenocain.com/"><h6>Alden O'Cain</h6></a>
-    <a href="http://reyhankogukoglu.com/"><h6>Reyhan Kogukoglu</h6></a>
+<div class="px-4 mt-3">
+    <h4>N-Queens by:</h4>
+    <a href="http://aldenocain.com/"><button class="mt-1 btn btn-secondary chess-btn">Alden O'Cain</button></a>
+    <a href="http://reyhankogukoglu.com/"><button class="mt-1 btn btn-secondary chess-btn">Reyhan Kogukoglu</button></a>
 </div>
 <!-- SCRIPTS -->
 <script src="scripts/timer.js"></script>
