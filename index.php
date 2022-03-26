@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!--    to do-->
 <!--    we should make a readme for the repo for nqueens-->
-<!--    and fix the hover colors for the bootstrap css-->
 <!--    should be 352 not 280-->
+<!--    should scan solution boards for solution lists-->
     <meta charset="UTF-8">
     <title>N-Queens: Iteration and Recursion</title>
+
     <!-- RESOURCES -->
     <link rel="stylesheet" href="resources/bootstrap.min.css">
     <link rel="stylesheet" href="resources/chess_styling.css">
@@ -15,6 +15,8 @@
     <script src="resources/jquery-3.6.0.min.js"></script>
 </head>
 <body class="px-5 bg-light">
+
+<!-- HEADER WITH ICON/TEXT -->
 <header>
     <div class="pt-4" >
         <img class="float-start mt-2" src="resources/queen.png" alt="Queen Icon" width="112" height="112">
@@ -27,11 +29,15 @@
         </div>
     </div>
 </header>
+
+<!-- REMAINING BODY -->
 <div class="vstack gap-3">
+    <!-- REPORT / GITHUB BUTTONS -->
     <a class="px-3" href="resources/nqueens_manuscript.pdf"><button class="mt-3 btn btn-secondary btn-lg chess-btn">Report</button></a>
     <a href="https://github.com/reyhankogukoglu/NQueens"><button class="mt-3 btn btn-secondary btn-lg chess-btn">GitHub</button></a>
+
+    <!-- TIMER (HIDDEN BY DEFAULT) -->
     <div id="timer" class="px-5 float-start container mt-3">
-        <!-- TIMER (HIDDEN BY DEFAULT) -->
         <h3 id="timerTableLabel"></h3>
         <table class="table" style="width: 20rem">
             <thead>
@@ -67,9 +73,10 @@
     <script>
         $("#timer").toggle();
     </script>
+
+    <!-- PHP PRINTING IN CHESS BOARD HTML -->
+    <!-- (N=8 OR N=9) BASED OFF GET REQUEST -->
     <div id="chess-board">
-        <!-- PHP PRINTING IN CHESS BOARD HTML -->
-        <!-- (N=8 OR N=9) BASED OFF GET REQUEST -->
         <?php
         if(!isset($_GET['n'])){
             $fileName = "8-queens-board.html";
@@ -93,6 +100,8 @@
         }
         ?>
     </div>
+
+    <!-- USER MENU -->
     <div id="menu" class="px-4">
         <button id="timer-btn" class="mt-4 btn btn-secondary chess-btn" onclick="timerToggle();">Timer</button>
         <button class="mt-4 btn btn-secondary chess-btn" onclick="iterative_solution();">Iterative</button>
@@ -122,18 +131,20 @@
         </script>
     </div>
 </div>
-<div class="px-4 mt-3">
+<div id="authors" class="px-4 mt-3">
     <h6 style="display:inline-block">Authors:&nbsp;</h6>
     <a href="http://aldenocain.com/"><button class="mt-1 btn btn-secondary chess-btn">Alden O'Cain</button></a>
     <a href="http://reyhankogukoglu.com/"><button class="mt-1 btn btn-secondary chess-btn">Reyhan Kogukoglu</button></a>
 </div>
+
 <!-- SCRIPTS -->
 <script src="scripts/board.js"></script>
 <script src="scripts/check_board.js"></script>
 <script src="scripts/iterative_solution.js"></script>
 <script src="scripts/recursive_solution.js"></script>
-<script src="scripts/solutions.ts"></script>
+<script src="scripts/solutions.js"></script>
 <script src="scripts/timer.js"></script>
+
 <!-- OTHER RESOURCES -->
 <script src="resources/popper.min.js"></script>
 <script src="resources/bootstrap.min.js"></script>

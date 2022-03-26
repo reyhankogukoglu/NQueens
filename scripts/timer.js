@@ -51,4 +51,5 @@ function stopTimer() {
     let timeDifference = secondTime - firstTime;
     let totalTimeField = document.getElementById("totalTime");
     totalTimeField.innerHTML = String(timeDifference);
+    return timeDifference;
 }

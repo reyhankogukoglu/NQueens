@@ -79,3 +79,20 @@ function updateBoardHTML(board:number[][]){
         counter1 += 1;
     });
 }
+
+function convertValidSolutionsArray(solutions:number[][][]) : number[][][] {
+    alert("convertValidSolutionsArray");
+    let converted_solutions:number[][][]=[];
+    solutions.forEach(solution => {
+        let converted_solution:number[][]=[];
+        converted_solution = findQueenPositionsFromBoard(solution);
+        converted_solutions.push(converted_solution);
+    });
+    return converted_solutions;
+}
+
+function findQueenPositionsFromBoard(board:number[][]) : number[][] {
+    let converted_solution:number[][]=[];
+    alert("findQueenPositionsFromBoard");
+    return converted_solution;
+}

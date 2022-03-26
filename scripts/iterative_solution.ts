@@ -1,8 +1,9 @@
 function iterative_solution(){
+    startTimer();
+    let first_solution_found:boolean = false;
     let valid_solutions:number[][][]=[];
     // set board to queens on the main diagonal
-    let board_size = checkHTMLBoardSize()!;
-
+    const board_size = checkHTMLBoardSize()!;
     // initialize the board with a main diagonal of queens
     let board:number[][] = [];
     for(let k=0; k < board_size; k++){
@@ -30,7 +31,6 @@ function iterative_solution(){
         );
     };
     var rowPermutationList:number[][] = permutations(Array.from(Array(board_size).keys()));
-    console.log(rowPermutationList);
 
     // setup cont. - performing permutedBoard on diagonal sub arrays
     var allPossibleBoards:number[][][] = [];
@@ -71,12 +71,16 @@ function iterative_solution(){
     // action
     allPossibleBoards.forEach(permutedBoard =>{
         board = permutedBoard;
+        let size_before:number = valid_solutions.length;
         valid_solutions = checkBoardDiags(board, valid_solutions);
+        if(valid_solutions.length != size_before && !first_solution_found){
+            first_solution_found = true;
+            stopTimerFirst();
+        }
     });
     updateBoardHTML(board);
+    let runtime:number = stopTimer();
     unlockTimerButton("Iterative");
-    // stopTimerFirst();
-    // stopTimer();
-    unlockSolutions();
-    console.log(valid_solutions.length + " solutions found iteratively for " + board_size + "-Queens!");
+    // unlockSolutions();
+    console.log(valid_solutions.length + " solutions found iteratively for " + board_size + "-Queens in " + runtime + " milliseconds!");
 }

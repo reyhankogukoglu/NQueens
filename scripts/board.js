@@ -77,3 +77,18 @@ function updateBoardHTML(board) {
         counter1 += 1;
     });
 }
+function convertValidSolutionsArray(solutions) {
+    alert("convertValidSolutionsArray");
+    let converted_solutions = [];
+    solutions.forEach(solution => {
+        let converted_solution = [];
+        converted_solution = findQueenPositionsFromBoard(solution);
+        converted_solutions.push(converted_solution);
+    });
+    return converted_solutions;
+}
+function findQueenPositionsFromBoard(board) {
+    let converted_solution = [];
+    alert("findQueenPositionsFromBoard");
+    return converted_solution;
+}

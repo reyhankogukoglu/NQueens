@@ -2,24 +2,23 @@ function recursive_solution(){
     // so basically for loop checks each column of the row
     // and the Queen(b, r+1) iterate to next row anad then
     // it use recursive to chahck the column of that row
+    const board_size = checkHTMLBoardSize()!;
     let valid_solutions:number[][][]=[];
-    // set board to queens on the main diagonal
-    let board = [
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0]
-    ];
-    const board_size = board.length;
+    // initialize the board empty
+    let board:number[][] = [];
+    for(let k=0; k < board_size; k++){
+        let boardRow:number[] = [];
+        for(let l=0; l < board_size; l++){
+            boardRow.push(0);
+        }
+        board.push(boardRow);
+    }
     recursive_nqueen(board, 0, board_size, valid_solutions);
-    console.log(valid_solutions.length + " solutions found!");
+    let runtime:number = 0;
+    console.log(valid_solutions.length + " solutions found recursively for " + board_size + "-Queens in " + runtime + " milliseconds!");
 }
 
-function recursive_nqueen(board, num_queens, max_queens, valid_solutions){
+function recursive_nqueen(board:number[][], num_queens:number, max_queens:number, valid_solutions:number[][][]) : boolean {
     let x:number = 0;
     board.forEach(row => {
         let y:number = 0;
@@ -50,6 +49,7 @@ function recursive_nqueen(board, num_queens, max_queens, valid_solutions){
                                 [0,0,0,0,0,0,0,0]
                             ];
                         }
+                        return true;
                     }
                 }
             }
@@ -57,5 +57,5 @@ function recursive_nqueen(board, num_queens, max_queens, valid_solutions){
         });
         x += 1;
     });
-    recursive_nqueen(board, num_queens, max_queens, valid_solutions);
+    return recursive_nqueen(board, num_queens, max_queens, valid_solutions);
 }

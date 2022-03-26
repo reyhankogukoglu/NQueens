@@ -1,7 +1,10 @@
 $lightColor: #eee;
 $darkColor: #aaa;
+
 $buttonLight: $lightColor;
 $buttonDark: #6e6b6b;
+$buttonHoverBackground: $buttonLight;
+$buttonHoverText: $buttonDark;
 
 .chess-board .light {
   background: $lightColor;
@@ -17,6 +20,38 @@ $buttonDark: #6e6b6b;
   /* LIGHT ON DARK */
   color: $buttonLight;
   background: $buttonDark;
+
+  /* DARK ON LIGHT */
+  /*color: $buttonDark;*/
+  /*background: $buttonLight;*/
+
+  /* OTHER */
+  /*color: #aaa;*/
+  /*background: #eee;*/
+}
+
+.chess-btn:hover {
+  /* bootstrap override */
+
+  /* LIGHT ON DARK */
+  color: $buttonHoverText;
+  background: $buttonHoverBackground;
+
+  /* DARK ON LIGHT */
+  /*color: $buttonDark;*/
+  /*background: $buttonLight;*/
+
+  /* OTHER */
+  /*color: #aaa;*/
+  /*background: #eee;*/
+}
+
+.chess-btn:focus {
+  /* bootstrap override */
+
+  /* LIGHT ON DARK */
+  color: $buttonHoverText;
+  background: $buttonHoverBackground;
 
   /* DARK ON LIGHT */
   /*color: $buttonDark;*/

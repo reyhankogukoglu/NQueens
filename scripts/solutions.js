@@ -1,4 +1,4 @@
+"use strict";
 function unlockSolutions() {
     $("#solutions").toggle();
-    alert("working");
 }
