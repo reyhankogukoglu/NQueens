@@ -4,34 +4,39 @@ function checkBoard(board, valid_solutions) {
     var colValidity = checkCols(board);
     var ldiagValidity = checkLeftDiags(board);
     var rdiagValidity = checkRightDiags(board);
-    var boardValidity = rowValidity != "false" && colValidity != "false" && rdiagValidity != "false" && ldiagValidity != "false";
-    if (boardValidity) {
+    var rowcolValidity = rowValidity != "false" && colValidity != "false"; // reduce line length
+    if (rowcolValidity && rdiagValidity != "false" && ldiagValidity != "false") { // reduce line length
         valid_solutions.push(board);
     }
-    else {
-        if (!rowValidity) {
-            console.log("rows: " + rowValidity);
-        }
-        if (!colValidity) {
-            console.log("cols: " + colValidity);
-        }
-        if (!ldiagValidity) {
-            console.log("ldiag: " + ldiagValidity);
-        }
-        if (!rdiagValidity) {
-            console.log("rdiag: " + rdiagValidity);
-        }
-    }
-    return [
-        boardValidity,
-        valid_solutions
-    ];
+    // else {
+    //     if(!rowValidity){
+    //         console.log("rows: " + rowValidity)
+    //     }
+    //     if(!colValidity){
+    //         console.log("cols: " + colValidity)
+    //     }
+    //     if(!ldiagValidity){
+    //         console.log("ldiag: " + ldiagValidity)
+    //     }
+    //     if(!rdiagValidity){
+    //         console.log("rdiag: " + rdiagValidity)
+    //     }
+    // }
+    return valid_solutions;
 }
 function checkBoardDiags(board, valid_solutions) {
     var ldiagValidity = checkLeftDiags(board);
     var rdiagValidity = checkRightDiags(board);
     if (rdiagValidity == "true" && ldiagValidity == "true") {
         valid_solutions.push(board);
+    }
+    else {
+        if (!ldiagValidity) {
+            console.log("ldiag: " + ldiagValidity);
+        }
+        if (!rdiagValidity) {
+            console.log("rdiag: " + rdiagValidity);
+        }
     }
     return valid_solutions;
 }
@@ -168,12 +173,10 @@ function checkRightDiags(board) {
     }
     // sometimes an empty cell is added at the end
     // so if that is the case we will remove it now
-    console.log(diags);
     var last_diags_element_size = diags[diags.length - 1].length;
     if (last_diags_element_size == 0) {
         diags.pop();
     }
-    console.log(diags);
     let returnValue = "null";
     diags.forEach(diag => {
         let queenCounter = 0;

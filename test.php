@@ -105,8 +105,9 @@
     <!-- USER MENU -->
     <div id="menu" class="px-4">
         <button id="timer-btn" class="mt-4 btn btn-secondary chess-btn" onclick="timerToggle();">Timer</button>
-        <button id="iterative-btn" class="mt-4 btn btn-secondary chess-btn" onclick="iterative_solution();">Iterative</button>
-        <button id="recursive-btn" class="mt-4 btn btn-secondary chess-btn" onclick="recursive_solution();">Recursive</button>
+        <button class="mt-4 btn btn-secondary chess-btn" onclick="iterative_solution();">Solve 8</button>
+        <button class="mt-4 btn btn-secondary chess-btn" onclick="iterative_solution_nine();">Solve 9</button>
+        <button class="mt-4 btn btn-secondary chess-btn" onclick="recursive_solution();" hidden>Recursive</button>
         <!-- PRINT DIFFERENT BUTTON WITH DIFFERENT LINK -->
         <!-- /W PHP BASED OFF WHICH BOARD IS BEING SHOWN -->
         <?php
@@ -120,6 +121,7 @@
             }
         }
         ?>
+        <button class="mt-4 btn btn-danger" onclick="test_board();">Test</button>
         <div id="solutions">
             <!-- SOLUTIONS (HIDDEN UNTIL PROGRAM RUNS) -->
             <select id="solutionDropDown" class="mt-3 form-select" aria-label="Default select example" style="width: 24rem">
@@ -141,7 +143,8 @@
 <!-- SCRIPTS -->
 <script src="scripts/board.js"></script>
 <script src="scripts/check_board.js"></script>
-<script src="scripts/iterative_solution.js"></script>
+<!--<script src="scripts/iterative_solution.js"></script>-->
+<script src="scripts/iterative_solution_nine.js"></script>
 <script src="scripts/recursive_solution.js"></script>
 <script src="scripts/solutions.js"></script>
 <script src="scripts/timer.js"></script>

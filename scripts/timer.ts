@@ -3,6 +3,7 @@ function timerToggle(){
     let timerBtn = document.getElementById("timer-btn")!;
     let timerBtnStyles = timerBtn.getAttribute("class");
     if (String(timerBtnStyles).includes("success") || String(timerBtnStyles).includes("danger")){
+        // @ts-ignore
         $("#timer").toggle();
         if (String(timerBtnStyles).includes("success")){
             timerBtn.innerHTML = "Hide";

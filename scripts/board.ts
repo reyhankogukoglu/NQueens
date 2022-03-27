@@ -21,6 +21,7 @@ function test_board(){
         [0, 0, 0, 0, 0, 0, 0, 0, 1],
         [0, 0, 0, 0, 1, 0, 0, 0, 0]
     ];
+
     // board = toggleXY(board,0,0);
     // board = toggleXY(board,8,8);
     let valid_solutions:number[][][]=[];
