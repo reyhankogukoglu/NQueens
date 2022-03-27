@@ -1,11 +1,12 @@
-function iterative_solution(){
+function iterative_solution_nine(){
     startTimer(); // saves the start time of the program
     let first_solution_found:boolean = false;
     let valid_solutions:number[][][]=[];
-    const board_size = checkHTMLBoardSize()!;
+    const board_size = 9;
 
     // initialize the board with a main diagonal of queens
     let board:number[][] = [];
+    console.log(board);
     for(let k=0; k < board_size; k++){
         let boardRow:number[] = [];
         for(let l=0; l < board_size; l++){
@@ -13,7 +14,9 @@ function iterative_solution(){
         }
         boardRow[k] = 1;
         board.push(boardRow);
+        console.log(boardRow);
     }
+    console.log(board);
     // updateBoardHTML(board); // seems to get missed even with a delay
 
     // setup - calculates permutations of set of N size
@@ -31,7 +34,7 @@ function iterative_solution(){
         );
     };
     // saves permutations representative of columns forming main diagonal (containing queens)
-    var rowPermutationList:number[][] = permutations(Array.from(Array(board_size).keys()));
+    var rowPermutationList:number[][] = permutations([0,1,2,3,4,5,6,7,8]);
 
     // setup cont. - performing permutedBoard on diagonal sub arrays
     var allPossibleBoards:number[][][] = [];
@@ -67,14 +70,13 @@ function iterative_solution(){
 
         // if this is the first solution, save the time and calculate difference
         if(valid_solutions.length != size_before && !first_solution_found){
-            first_solution_found = true;
-            stopTimerFirst();
+            // first_solution_found = true;
+            // stopTimerFirst();
         }
     });
-
     updateBoardHTML(board); // updates the HTML chess board on the screen
-    let runtime:number = stopTimer(); // saves the total times and returns value
-    unlockTimerButton("Iterative"); // unlocks the timer and sets label
+    // let runtime:number = stopTimer(); // saves the total times and returns value
+    // unlockTimerButton("Iterative"); // unlocks the timer and sets label
     // unlockSolutions(); // unlocks the solutions menu
-    console.log(valid_solutions.length + " solutions found iteratively for " + board_size + "-Queens in " + runtime + " milliseconds!");
+    console.log(valid_solutions.length + " solutions found iteratively for " + board_size + "-Queens in " + "X" + " milliseconds!");
 }
