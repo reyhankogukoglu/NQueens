@@ -4,6 +4,7 @@
 <!--    we should make a readme for the repo for nqueens-->
 <!--    should be 352 not 280-->
 <!--    should scan solution boards for solution lists-->
+<!--    remove duplicate boards-->
     <meta charset="UTF-8">
     <title>N-Queens: Iteration and Recursion</title>
 
@@ -21,7 +22,7 @@
     <div class="pt-4" >
         <img class="float-start mt-2" src="resources/queen.png" alt="Queen Icon" width="112" height="112">
         <div class="px-3" style="display:inline-block">
-            <h3>N-Queens</h3>
+            <h3 id="title-text">N-Queens</h3>
             <h5>Ontario Tech University</h5>
             <h6>SOFE 2715U: Data Structures</h6>
             <h6>Iterative & Recursive Solutions</h6>
@@ -36,7 +37,7 @@
     <a class="px-3" href="resources/nqueens_manuscript.pdf"><button class="mt-3 btn btn-secondary btn-lg chess-btn">Report</button></a>
     <a href="https://github.com/reyhankogukoglu/NQueens"><button class="mt-3 btn btn-secondary btn-lg chess-btn">GitHub</button></a>
 
-    <!-- TIMER (HIDDEN BY DEFAULT) -->
+    <!-- TIMER (HIDDEN UNTIL PROGRAM RUNS) -->
     <div id="timer" class="px-5 float-start container mt-3">
         <h3 id="timerTableLabel"></h3>
         <table class="table" style="width: 20rem">
@@ -79,7 +80,7 @@
     <div id="chess-board">
         <?php
         if(!isset($_GET['n'])){
-            $fileName = "8-queens-board.html";
+            $fileName = "9-queens-board.html";
         } else {
             if($_GET['n'] == "8"){
                 $fileName = "8-queens-board.html";
@@ -110,7 +111,7 @@
         <!-- /W PHP BASED OFF WHICH BOARD IS BEING SHOWN -->
         <?php
         if(!isset($_GET['n'])){
-            echo "<a href='../NQueens/?n=9'><button id='changeSizeBtn' class='mt-4 btn btn-secondary chess-btn'>9-Queens</button></a>";
+            echo "<a href='../NQueens/?n=8'><button id='changeSizeBtn' class='mt-4 btn btn-secondary chess-btn'>8-Queens</button></a>";
         } else {
             if($_GET['n'] == "8"){
                 echo "<a href='../NQueens/?n=9'><button id='changeSizeBtn' class='mt-4 btn btn-secondary chess-btn'>9-Queens</button></a>";
@@ -119,8 +120,9 @@
             }
         }
         ?>
+        <button class="mt-4 btn btn-danger" onclick="test_board();">Test</button>
         <div id="solutions">
-            <!-- SOLUTIONS (HIDDEN BY DEFAULT) -->
+            <!-- SOLUTIONS (HIDDEN UNTIL PROGRAM RUNS) -->
             <select id="solutionDropDown" class="mt-3 form-select" aria-label="Default select example" style="width: 24rem">
                 <option selected>Click here to see solutions..</option>
                 <!--        <option value="solution3">Three</option>-->

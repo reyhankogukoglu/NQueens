@@ -29,7 +29,7 @@ function checkBoard(board:number[][], valid_solutions:number[][][]){
 function checkBoardDiags(board:number[][], valid_solutions:number[][][]){
     var ldiagValidity:string = checkLeftDiags(board);
     var rdiagValidity:string = checkRightDiags(board);
-    if (rdiagValidity != "false" && ldiagValidity != "false"){
+    if (rdiagValidity == "true" && ldiagValidity == "true"){
         valid_solutions.push(board);
     }
     return valid_solutions;
@@ -105,6 +105,7 @@ function checkLeftDiags(board:number[][]) {
     // sometimes an empty cell is added at the end
     // so if that is the case we will remove it now
     var last_diags_element_size = diags[diags.length-1].length;
+    // console.log(diags);
     if (last_diags_element_size == 0){
         diags.pop();
     }

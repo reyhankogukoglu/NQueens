@@ -1,9 +1,8 @@
 "use strict";
 function iterative_solution() {
-    startTimer();
+    startTimer(); // saves the start time of the program
     let first_solution_found = false;
     let valid_solutions = [];
-    // set board to queens on the main diagonal
     const board_size = checkHTMLBoardSize();
     // initialize the board with a main diagonal of queens
     let board = [];
@@ -15,8 +14,8 @@ function iterative_solution() {
         boardRow[k] = 1;
         board.push(boardRow);
     }
-    // updateBoardHTML(board);
-    // setup - calculating permutations for N-queen on a main diagonal
+    // updateBoardHTML(board); // seems to get missed even with a delay
+    // setup - calculates permutations of set of N size
     const permutations = (ourPermutationsList) => {
         if (ourPermutationsList.length <= 2)
             return ourPermutationsList.length === 2 ? [ourPermutationsList, [ourPermutationsList[1], ourPermutationsList[0]]] : ourPermutationsList;
@@ -25,36 +24,24 @@ function iterative_solution() {
             ...val,
         ])), []);
     };
+    // saves permutations representative of columns forming main diagonal (containing queens)
     var rowPermutationList = permutations(Array.from(Array(board_size).keys()));
     // setup cont. - performing permutedBoard on diagonal sub arrays
     var allPossibleBoards = [];
     var permutedBoard;
     rowPermutationList.forEach(permutation => {
-        if (board_size == 8) {
-            permutedBoard = [
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0]
-            ];
+        // loop through all permutations
+        // create a new empty board
+        permutedBoard = [];
+        for (let k = 0; k < board_size; k++) {
+            let permutedBoardRow = [];
+            for (let l = 0; l < board_size; l++) {
+                permutedBoardRow.push(0);
+            }
+            permutedBoard.push(permutedBoardRow);
         }
-        else if (board_size == 9) {
-            permutedBoard = [
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0]
-            ];
-        }
+        // change column positions of diagonal entries
+        // based off element values the permutation
         let permutationCounter = 0;
         permutation.forEach(element => {
             permutedBoard[permutationCounter] = board[element];
@@ -62,19 +49,20 @@ function iterative_solution() {
         });
         allPossibleBoards.push(permutedBoard);
     });
-    // action
+    // action: check all possible boards for validity
     allPossibleBoards.forEach(permutedBoard => {
         board = permutedBoard;
         let size_before = valid_solutions.length;
         valid_solutions = checkBoardDiags(board, valid_solutions);
+        // if this is the first solution, save the time and calculate difference
         if (valid_solutions.length != size_before && !first_solution_found) {
             first_solution_found = true;
             stopTimerFirst();
         }
     });
-    updateBoardHTML(board);
-    let runtime = stopTimer();
-    unlockTimerButton("Iterative");
-    // unlockSolutions();
+    updateBoardHTML(board); // updates the HTML chess board on the screen
+    let runtime = stopTimer(); // saves the total times and returns value
+    unlockTimerButton("Iterative"); // unlocks the timer and sets label
+    // unlockSolutions(); // unlocks the solutions menu
     console.log(valid_solutions.length + " solutions found iteratively for " + board_size + "-Queens in " + runtime + " milliseconds!");
 }
