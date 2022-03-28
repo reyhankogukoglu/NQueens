@@ -33,6 +33,10 @@ function iterative_solution(){
     };
     // saves permutations representative of columns forming main diagonal (containing queens)
     var rowPermutationList:number[][] = permutations(Array.from(Array(board_size).keys()));
+    // console.log(rowPermutationList.length) // should be 362 880 for 9, 40 320 for 8
+    // rowPermutationList.forEach(element => {
+    //     console.log(element);
+    // });
 
     // setup cont. - performing permutedBoard on diagonal sub arrays
     var allPossibleBoards:number[][][] = [];
@@ -58,8 +62,8 @@ function iterative_solution(){
             permutationCounter += 1;
         });
         allPossibleBoards.push(permutedBoard);
-    });
 
+    });
     //
     //
     //
@@ -4673,7 +4677,7 @@ function iterative_solution(){
         let size_before:number = valid_solutions.length;
         valid_solutions = checkBoardDiags(board, valid_solutions);
 
-        console.log(permutedBoard);
+        // console.log(permutedBoard);
 
         // if this is the first solution, save the time and calculate difference
         if(valid_solutions.length != size_before && !first_solution_found){
