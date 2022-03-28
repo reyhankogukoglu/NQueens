@@ -34,7 +34,7 @@
 <!-- REMAINING BODY -->
 <div class="vstack gap-3">
     <!-- REPORT / GITHUB BUTTONS -->
-    <a class="px-3" href="resources/nqueens_manuscript.pdf"><button class="mt-3 btn btn-secondary btn-lg chess-btn">Report</button></a>
+    <a class="px-3" href="resources/N-Queens.pdf"><button class="mt-3 btn btn-secondary btn-lg chess-btn">Report</button></a>
     <a href="https://github.com/reyhankogukoglu/NQueens"><button class="mt-3 btn btn-secondary btn-lg chess-btn">GitHub</button></a>
 
     <!-- TIMER (HIDDEN UNTIL PROGRAM RUNS) -->
