@@ -3,37 +3,22 @@ function test_board() {
     // https://queens.lyndenlea.info/nqueens.php?pg=solutions&sol=9
     const board_size = checkHTMLBoardSize();
     // initialize the board with a main diagonal of queens
-    // let board:number[][] = [];
-    // for(let k=0; k < board_size; k++){
-    //     let boardRow:number[] = [];
-    //     for(let l=0; l < board_size; l++){
-    //         boardRow.push(0);
-    //     }
-    //     board.push(boardRow);
-    // }
-    let board = [
-        [1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 1, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 1, 0],
-        [0, 0, 1, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 1, 0, 0, 0, 0]
-    ];
-    // board = toggleXY(board,0,0);
-    // board = toggleXY(board,8,8);
-    let valid_solutions = [];
-    valid_solutions = checkBoardDiags(board, valid_solutions);
-    if (valid_solutions.length != 1) {
-        let title = document.getElementById("title-text");
-        title.innerHTML = "failed";
+    let board = [];
+    for (let k = 0; k < board_size; k++) {
+        let boardRow = [];
+        for (let l = 0; l < board_size; l++) {
+            boardRow.push(0);
+        }
+        board.push(boardRow);
     }
-    else {
-        let title = document.getElementById("title-text");
-        title.innerHTML = "passed";
-    }
+    // board = toggleXY(board,0,2);
+    // board = toggleXY(board,1,0);
+    // board = toggleXY(board,2,6);
+    // board = toggleXY(board,3,4);
+    // board = toggleXY(board,4,7);
+    // board = toggleXY(board,5,1);
+    // board = toggleXY(board,6,3);
+    // board = toggleXY(board,7,5);
     updateBoardHTML(board);
 }
 function sizeSelectChange() {

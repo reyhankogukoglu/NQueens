@@ -1,45 +1,6 @@
 "use strict";
-function isSafe(board, row, col) {
-    // Check this row on left side
-    for (let i = 0; i < col; i++) {
-        if (board[row][i] == 1)
-            return false;
-    }
-    // Check upper diagonal on left side
-    for (let i = row, j = col; i >= 0 && j >= 0; i--, j--)
-        if (board[i][j])
-            return false;
-    // Check lower diagonal on left side
-    for (let i = row, j = col; j >= 0 && i < board.length; i++, j--)
-        if (board[i][j])
-            return false;
-    return true;
-}
-function solveNQUtil(board, col) {
-    console.log(board);
-    // base case: If all queens are placed
-    // then return true
-    if (col >= board.length)
-        return true;
-    // Consider this column and try placing
-    // this queen in all rows one by one
-    for (let i = 0; i < board.length; i++) {
-        if (isSafe(board, i, col)) {
-            // Place this queen in board[i][col]
-            board[i][col] = 1;
-            // recur to place rest of the queens
-            if (solveNQUtil(board, col + 1))
-                return true;
-            // If placing queen in board[i][col
-            // doesn't lead to a solution, then
-            // queen from board[i][col]
-            board[i][col] = 0;
-        }
-    }
-    // if the queen can not be placed in any row in
-    // this column col then return false
-    return false;
-}
+let valid_solutions = [];
+let first_solution_found = false;
 function recursive_solution() {
     // unset iterative button from being green if recursive was run first
     let recursiveBtn = document.getElementById("iterative-btn");
@@ -50,11 +11,11 @@ function recursive_solution() {
     // sets the button clicked to green
     let timerBtn = document.getElementById("recursive-btn");
     timerBtn.setAttribute("class", "mt-4 btn btn-success");
+    startTimer(); // saves the start time of the program
     // so basically for loop checks each column of the row
     // and the Queen(b, r+1) iterate to next row anad then
     // it use recursive to chahck the column of that row
     const board_size = checkHTMLBoardSize();
-    let valid_solutions = [];
     // initialize the board empty
     let board = [];
     for (let k = 0; k < board_size; k++) {
@@ -65,49 +26,57 @@ function recursive_solution() {
         board.push(boardRow);
     }
     // recursive_nqueen(board, 0, board_size, valid_solutions);
-    solveNQUtil(board, 0);
-    let runtime = 0;
+    // solveNQUtil(board,0);
+    nQueen(board, 0);
+    updateBoardHTML(board); // updates the HTML chess board on the screen
+    let runtime = stopTimer(); // saves the total times and returns value
+    unlockTimerButton("Iterative"); // unlocks the timer and sets label
     console.log(valid_solutions.length + " solutions found recursively for " + board_size + "-Queens in " + runtime + " milliseconds!");
 }
-function recursive_nqueen(board, num_queens, max_queens, valid_solutions) {
-    let x = 0;
-    board.forEach(row => {
-        let y = 0;
-        // Start in the leftmost column ( first row )
-        row.forEach(cell => {
-            if (!isQueenHere(board, x, y)) {
-                board = toggleXY(board, x, y);
-                let cbReturnArray = checkBoard(board, valid_solutions);
-                let reverse = !cbReturnArray[0];
-                if (reverse) {
-                    // if the queen added invalidated the board
-                    board = toggleXY(board, x, y);
-                }
-                else {
-                    // if the queen added was valid
-                    num_queens += 1;
-                    if (num_queens == max_queens) {
-                        // If all queens are placed
-                        if (valid_solutions.indexOf(board) != -1) {
-                            valid_solutions.push(board);
-                            board = [
-                                [0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0],
-                                [0, 0, 0, 0, 0, 0, 0, 0]
-                            ];
-                        }
-                        return true;
-                    }
-                }
-            }
-            y += 1;
-        });
-        x += 1;
-    });
-    return recursive_nqueen(board, num_queens, max_queens, valid_solutions);
+function nQueen(board, row) {
+    const board_size = board.length;
+    if (row == board_size) {
+        let size_before = valid_solutions.length;
+        valid_solutions.push(board);
+        if (valid_solutions.length != size_before && !first_solution_found) {
+            first_solution_found = true;
+            stopTimerFirst();
+        }
+        return;
+    }
+    for (let column = 0; column < board_size; column++) {
+        // @ts-ignore
+        if (isSafeRec(board, row, column)) {
+            board[row][column] = 1;
+            nQueen(board, row + 1);
+            board[row][column] = 0;
+        }
+    }
+}
+function isSafeRec(board, row, column) {
+    const board_size = board.length;
+    for (let i = 0; i < row; i++) {
+        if (board[i][column] == 1) {
+            return false;
+        }
+    }
+    let i = row;
+    let j = column;
+    while (i >= 0 && j >= 0) {
+        if (board[i][j] == 1) {
+            return false;
+        }
+        i -= 1;
+        j -= 1;
+    }
+    i = row;
+    j = column;
+    while (i >= 0 && j < board_size) {
+        if (board[i][j] == 1) {
+            return false;
+        }
+        i -= 1;
+        j -= 1;
+    }
+    return true;
 }

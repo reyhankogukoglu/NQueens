@@ -80,7 +80,7 @@
     <div id="chess-board">
         <?php
         if(!isset($_GET['n'])){
-            $fileName = "9-queens-board.html";
+            $fileName = "8-queens-board.html";
         } else {
             if($_GET['n'] == "8"){
                 $fileName = "8-queens-board.html";
@@ -104,14 +104,15 @@
 
     <!-- USER MENU -->
     <div id="menu" class="px-4">
-        <button id="timer-btn" class="mt-4 btn btn-secondary chess-btn" onclick="timerToggle();">Timer</button>
+        <button id="timer-btn" class="mt-4 btn btn-secondary chess-btn" onclick="timerToggle();">Show Timer</button>
         <button id="iterative-btn" class="mt-4 btn btn-secondary chess-btn" onclick="iterative_solution();">Iterative</button>
         <button id="recursive-btn" class="mt-4 btn btn-secondary chess-btn" onclick="recursive_solution();">Recursive</button>
+        <button id="test-btn" class="mt-4 btn btn-secondary chess-btn" onclick="test_board();">Test</button>
         <!-- PRINT DIFFERENT BUTTON WITH DIFFERENT LINK -->
         <!-- /W PHP BASED OFF WHICH BOARD IS BEING SHOWN -->
         <?php
         if(!isset($_GET['n'])){
-            echo "<a href='../NQueens/?n=8'><button id='changeSizeBtn' class='mt-4 btn btn-secondary chess-btn'>8-Queens</button></a>";
+            echo "<a href='../NQueens/?n=9'><button id='changeSizeBtn' class='mt-4 btn btn-secondary chess-btn'>9-Queens</button></a>";
         } else {
             if($_GET['n'] == "8"){
                 echo "<a href='../NQueens/?n=9'><button id='changeSizeBtn' class='mt-4 btn btn-secondary chess-btn'>9-Queens</button></a>";

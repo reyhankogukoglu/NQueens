@@ -7,11 +7,11 @@ function timerToggle() {
         // @ts-ignore
         $("#timer").toggle();
         if (String(timerBtnStyles).includes("success")) {
-            timerBtn.innerHTML = "Hide";
+            timerBtn.innerHTML = "Hide Timer";
             timerBtn.setAttribute("class", "mt-4 btn btn-danger");
         }
         else {
-            timerBtn.innerHTML = "Timer";
+            timerBtn.innerHTML = "Show Timer";
             timerBtn.setAttribute("class", "mt-4 btn btn-success");
         }
     }
